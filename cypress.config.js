@@ -7,7 +7,7 @@ module.exports = defineConfig({
     },
   },
   env:{
-    baseUrl:'https://gorest.co.in/public/v2/',
+    Url:'https://gorest.co.in/public/v2/',
     token:'Bearer 89c07163b5071631e58aa5ef2f9ff924493b40d7c85dc49c43cb6b352b3f8fc5'
 
 },

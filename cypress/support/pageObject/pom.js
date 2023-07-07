@@ -1,62 +1,41 @@
+const baseUrl = Cypress.env('Url')
+const token = Cypress.env('token')
 
-// const url = Cypress.env('baseUrl')
-// const token = Cypress.env('token')
-
-// export class User{
-//     getAllUser(){
-//         return new Cypress.Promise((resolve, reject)=>{
-//             cy.request({
-//                 method : 'GET',
-//                 url : url+'/users',
-//                 headers:{
-//                     'Authorization' : token 
-//                 },
-//             }).then((response)=>{
-//              resolve(response)
-//             })
-//         })
-//         }
-//         getOneUser(id){
-//             return new Cypress.Promise((resolve, reject)=>{
-//                 cy.request({
-//                     method : 'GET',
-//                     url : url+'/users/'+id,
-//                     headers:{
-//                         'Authorization' : token 
-//                     },
-//                 }).then((response)=>{
-//                  resolve(response)
-//                 })
-//             })
-//             }
-//     createNewUser(body){
-//         return new Cypress.Promise((resolve,reject)=>{
-//             cy.request({
-//                 method : 'POST',
-//                 url : url+'/users',
-//                 failOnStatusCode: false,
-//                 headers:{
-//                     'Authorization' : token 
-//                 },
-//                 body:{
-//                     body
-//                   }
-//             }).then((response)=>{
-//                 resolve(response)
-//                  })
-//         })
-//     }
-// }
 class user {
-    baseurl (){
-        return (Cypress.env('baseUrl'))
+    baseurl() {
+        return baseUrl
     }
-    getAllUser(){
-        return cy.request({
-            method : 'GET',
-            url : this.baseurl()+'posts'
+    getAllUser() {
+        return new Cypress.Promise((resolve, reject) => {
+            cy.request({
+                method: 'GET',
+                url: this.baseurl() + 'posts',
+            }).then((res) => {
+                resolve(res);
+            });
         })
     }
+    createNewUser(body) {
+        
+        return cy.request({
+          method: 'POST',
+          url: this.baseurl() + 'users',
+          headers: {
+            'Authorization': token
+          },
+          body: body,
+          failOnStatusCode: false
+        });
+      }
+    generateRandomEmail() {
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+        const randomString = Math.random().toString(36).substring(2, 8);
+        const randomChar = alphabet[Math.floor(Math.random() * alphabet.length)];
+        const domain = 'example.com';
 
+        const randomEmail = `${randomString}${randomChar}@${domain}`;
+
+        return randomEmail;
+    }
 }
 export default new user
