@@ -50,5 +50,49 @@ describe('API Testing user ', () => {
           expect(response.body[0]).to.have.property('message', "can't be blank");
         });
       });
-      
+      it('update user', () => {
+        const requestBody1 = {
+          "name": "cypress",
+          "gender": "male",
+          "email": user.generateRandomEmail(),
+          "status": "active"
+        };
+        user.createNewUser(requestBody1).then((response) => {
+          expect(response.status).eq(201);
+          expect(response.body.name).eq('cypress');
+          expect(response.body).to.have.property('status', 'active');
+          const userID = response.body.id
+
+          const requestBody2 = {
+            "name": "sosos",
+            "gender": "male",
+            "email": user.generateRandomEmail(),
+            "status": "inactive"
+          };
+          user.updateUser(userID, requestBody2).then((response) => {
+            expect(response.status).eq(200);
+            expect(response.body.name).eq('sosos');
+            expect(response.body.status).eq('inactive');
+          })
+        });
+      });
+      it.only('delete user', () => {
+        const requestBody = {
+          "name": "cypress",
+          "gender": "male",
+          "email": user.generateRandomEmail(),
+          "status": "active"
+        };
+        user.createNewUser(requestBody).then((response) => {
+          expect(response.status).eq(201);
+          expect(response.body.name).eq('cypress');
+          expect(response.body).to.have.property('status', 'active');
+          const userID = response.body.id
+          user.DelUser(userID).then((response) => {
+            expect(response.status).eq(204);
+            expect(response.body).not.to.have.property('status', 'active');
+
+        }); 
+        });
+      })
 });

@@ -16,17 +16,38 @@ class user {
         })
     }
     createNewUser(body) {
-        
+
         return cy.request({
-          method: 'POST',
-          url: this.baseurl() + 'users',
-          headers: {
-            'Authorization': token
-          },
-          body: body,
-          failOnStatusCode: false
+            method: 'POST',
+            url: this.baseurl() + 'users',
+            headers: {
+                'Authorization': token
+            },
+            body: body,
+            failOnStatusCode: false
         });
-      }
+    }
+    updateUser(userID, body) {
+
+        return cy.request({
+            method: 'PUT',
+            url: this.baseurl()+'users/'+ userID,
+            headers: {
+                'Authorization': token
+            },
+            body: body,
+        })
+    }
+    DelUser(userID) {
+
+        return cy.request({
+            method: 'DELETE',
+            url: this.baseurl()+'users/'+ userID,
+            headers: {
+                'Authorization': token
+            },
+        })
+    }
     generateRandomEmail() {
         const alphabet = 'abcdefghijklmnopqrstuvwxyz';
         const randomString = Math.random().toString(36).substring(2, 8);
