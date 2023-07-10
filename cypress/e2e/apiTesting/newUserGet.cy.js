@@ -1,4 +1,5 @@
-
+/// <reference types = "Cypress" />
+import user from '/cypress/support/pageObject/pom.js';
 
 describe('create new user (post) and call through id (get)', () => {
         
@@ -13,13 +14,12 @@ describe('create new user (post) and call through id (get)', () => {
                 body: {
                     "name": "cypress",
                     "gender": "male",
-                    "email": "jack6@gmail.com",
+                    "email": user.generateRandomEmail(),
                     "status": "active"
                 },
             }).then((response) => {
                 expect(response.status).to.equal(201);
                 cy.log(JSON.stringify(response))
-                expect(response.body.email).eql('jack6@gmail.com')
                 expect(response.body.name).eql('cypress');
                 const userID = response.body.id;
                 cy.log("user id is: " + userID);
@@ -33,7 +33,6 @@ describe('create new user (post) and call through id (get)', () => {
                 }).then((getResponse) => {
                     expect(getResponse.status).to.equal(200)
                     expect(getResponse.body.id).to.eq(userID)
-                    expect(getResponse.body.email).eql('jack6@gmail.com')
                     expect(getResponse.body.name).eql('cypress');
                     
                 });

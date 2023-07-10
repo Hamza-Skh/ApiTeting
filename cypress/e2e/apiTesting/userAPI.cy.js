@@ -76,7 +76,7 @@ describe('API Testing user ', () => {
           })
         });
       });
-      it.only('delete user', () => {
+      it('delete user', () => {
         const requestBody = {
           "name": "cypress",
           "gender": "male",

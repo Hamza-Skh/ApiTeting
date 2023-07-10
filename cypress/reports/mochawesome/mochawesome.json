@@ -1,0 +1,105 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 1,
+    "passes": 1,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-07-10T07:02:54.577Z",
+    "end": "2023-07-10T07:02:56.166Z",
+    "duration": 1589,
+    "testsRegistered": 1,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "d9c243cf-e3ee-42f7-9fa7-7cdd176d220b",
+      "title": "",
+      "fullFile": "cypress/e2e/apiTesting/newUserGet.cy.js",
+      "file": "cypress/e2e/apiTesting/newUserGet.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "e54d4840-fe6b-4a7b-803e-60f9832d1397",
+          "title": "create new user (post) and call through id (get)",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "create new user and get through ID",
+              "fullTitle": "create new user (post) and call through id (get) create new user and get through ID",
+              "timedOut": null,
+              "duration": 1544,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "let access_token = '89c07163b5071631e58aa5ef2f9ff924493b40d7c85dc49c43cb6b352b3f8fc5';\ncy.request({\n  method: 'POST',\n  url: 'https://gorest.co.in/public/v2/users',\n  headers: {\n    'Authorization': 'Bearer ' + access_token\n  },\n  body: {\n    \"name\": \"cypress\",\n    \"gender\": \"male\",\n    \"email\": _pom.default.generateRandomEmail(),\n    \"status\": \"active\"\n  }\n}).then(response => {\n  expect(response.status).to.equal(201);\n  cy.log(JSON.stringify(response));\n  expect(response.body.name).eql('cypress');\n  const userID = response.body.id;\n  cy.log(\"user id is: \" + userID);\n  cy.request({\n    method: 'GET',\n    url: 'https://gorest.co.in/public/v2/users/' + userID,\n    headers: {\n      'Authorization': 'Bearer ' + access_token\n    }\n  }).then(getResponse => {\n    expect(getResponse.status).to.equal(200);\n    expect(getResponse.body.id).to.eq(userID);\n    expect(getResponse.body.name).eql('cypress');\n  });\n});",
+              "err": {},
+              "uuid": "8c0d5494-5887-4b10-b218-b5e9e75854f4",
+              "parentUUID": "e54d4840-fe6b-4a7b-803e-60f9832d1397",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "8c0d5494-5887-4b10-b218-b5e9e75854f4"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1544,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
