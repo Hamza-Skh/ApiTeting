@@ -31,7 +31,7 @@ class user {
 
         return cy.request({
             method: 'PUT',
-            url: this.baseurl()+'users/'+ userID,
+            url: this.baseurl() + 'users/' + userID,
             headers: {
                 'Authorization': token
             },
@@ -42,7 +42,7 @@ class user {
 
         return cy.request({
             method: 'DELETE',
-            url: this.baseurl()+'users/'+ userID,
+            url: this.baseurl() + 'users/' + userID,
             headers: {
                 'Authorization': token
             },
