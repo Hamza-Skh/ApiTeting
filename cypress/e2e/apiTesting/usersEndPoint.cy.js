@@ -1,7 +1,7 @@
 /// <reference types = "Cypress" />
 import user from '/cypress/support/pageObject/userApi.js';
 
-describe('users API Testing ', () => {
+describe('users endpoint API testing ', () => {
   it('get all the user', () => {
     const GetAllUser = user.getAllUser()
     GetAllUser.then((res) => {
@@ -17,7 +17,8 @@ describe('users API Testing ', () => {
       "email": user.generateRandomEmail(),
       "status": "active"
     };
-    user.createNewUser(requestBody).then((response) => {
+    const createUser = user.createNewUser(requestBody)
+    createUser.then((response) => {
       expect(response.status).eq(201);
       expect(response.body.name).eq('cypress');
       expect(response.body).to.have.property('status', 'active');
@@ -30,7 +31,8 @@ describe('users API Testing ', () => {
       "gender": "male",
       "status": "active",
     };
-    user.createNewUser(requestBody).then((response) => {
+    const createUser = user.createNewUser(requestBody)
+    createUser.then((response) => {
       expect(response.status).to.eq(422);
       expect(response.body[0].field).eq('email');
       expect(response.body[0]).to.have.property('message', "can't be blank");
@@ -42,54 +44,57 @@ describe('users API Testing ', () => {
       "email": user.generateRandomEmail(),
       "status": "active"
     };
-    user.createNewUser(requestBody).then((response) => {
+    const createUser = user.createNewUser(requestBody)
+    createUser.then((response) => {
       expect(response.status).eq(422);
       expect(response.body[0].field).eq('name');
       expect(response.body[0]).to.have.property('message', "can't be blank");
     });
   });
-  it('update user', () => {
+  it('update an existing user', () => {
     const requestBody1 = {
       "name": "cypress",
       "gender": "male",
       "email": user.generateRandomEmail(),
       "status": "active"
     };
-    user.createNewUser(requestBody1).then((response) => {
+    const createUser = user.createNewUser(requestBody1)
+    createUser.then((response) => {
       expect(response.status).eq(201);
       expect(response.body.name).eq('cypress');
       expect(response.body).to.have.property('status', 'active');
       const userID = response.body.id
-
       const requestBody2 = {
         "name": "sosos",
         "gender": "male",
         "email": user.generateRandomEmail(),
         "status": "inactive"
       };
-      user.updateUser(userID, requestBody2).then((response) => {
+      const updateUser = user.updateUser(userID, requestBody2)
+      updateUser.then((response) => {
         expect(response.status).eq(200);
         expect(response.body.name).eq('sosos');
         expect(response.body.status).eq('inactive');
       })
     });
   });
-  it('delete user', () => {
+  it('delete an existing user', () => {
     const requestBody = {
       "name": "cypress",
       "gender": "male",
       "email": user.generateRandomEmail(),
       "status": "active"
     };
-    user.createNewUser(requestBody).then((response) => {
+    const createUser = user.createNewUser(requestBody)
+    createUser.then((response) => {
       expect(response.status).eq(201);
       expect(response.body.name).eq('cypress');
       expect(response.body).to.have.property('status', 'active');
       const userID = response.body.id
-      user.DelUser(userID).then((response) => {
+      const delUser = user.DelUser(userID)
+      delUser.then((response) => {
         expect(response.status).eq(204);
         expect(response.body).not.to.have.property('status', 'active');
-
       });
     });
   })

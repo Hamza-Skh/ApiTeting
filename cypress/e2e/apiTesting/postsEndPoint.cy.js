@@ -1,10 +1,9 @@
 /// <reference types = "Cypress" />
 import posts from '/cypress/support/pageObject/postsApi.js';
 import user from '/cypress/support/pageObject/userApi.js';
-const token = Cypress.env('token')
 
-describe('user get request ', () => {
-    it("get all post ", () => {
+describe('GET request of posts endpoint ', () => {
+    it("get all posts ", () => {
         const postsUsers = posts.getAllPostsUsers()
         postsUsers.then((res) => {
             cy.log(res.body)
@@ -38,21 +37,17 @@ describe('user get request ', () => {
         })
     })
 })
-describe('user post request ', () => {
+describe('POST request of posts endpoint ', () => {
     it("create new post ", () => {
-        const requestBody = {
+        const newUser = {
             "name": "cypressApi",
             "gender": "male",
             "email": user.generateRandomEmail(),
             "status": "active"
         };
-        const new_User = user.createNewUser(requestBody)
+        const new_User = user.createNewUser(newUser)
         new_User.then((response) => {
-            expect(response.status).eq(201);
-            expect(response.body.name).eq('cypressApi');
-            expect(response.body).to.have.property('status', 'active');
             const User_ID = response.body.id
-
             const postBody = {
                 title: 'Testing',
                 body: "This is my post content",
@@ -69,35 +64,24 @@ describe('user post request ', () => {
         })
     })
     it("verify new post request present in all post", () => {
-        const requestBody = {
-            "name": "cypressApi",
-            "gender": "male",
-            "email": user.generateRandomEmail(),
-            "status": "active"
-        };
-        const new_User = user.createNewUser(requestBody)
-        new_User.then((response) => {
-            const User_ID = response.body.id
-
-            const postBody = {
-                title: 'Testing',
-                body: "This is my post content",
-                user_id: User_ID,
-            }
-            const newPost = posts.createNewPost(postBody)
-            newPost.then((res) => {
-                const postId = res.body.id;
-                const post = posts.getNewePost(postId)
-                post.then((res) => {
-                    expect(res.status).eq(200)
-                    expect(res.body.title).eq('Testing')
-                    expect(res.body.body).eq('This is my post content')
-                })
+        const postBody = {
+            title: 'Testing',
+            body: "This is my post content",
+            user_id: 3630556,
+        }
+        const newPost = posts.createNewPost(postBody)
+        newPost.then((res) => {
+            const postId = res.body.id;
+            const post = posts.getNewePost(postId)
+            post.then((res) => {
+                expect(res.status).eq(200)
+                expect(res.body.title).eq('Testing')
+                expect(res.body.body).eq('This is my post content')
             })
         })
     })
 })
-describe('posts put request ', () => {
+describe('PUT request of posts endpoint ', () => {
     it("Verify user update post sucessfully ", () => {
         const postBody = {
             title: 'Testing',
@@ -110,7 +94,6 @@ describe('posts put request ', () => {
             const postBody1 = {
                 title: 'Testing123',
                 body: "This is put content",
-                user_id: 3630556,
             }
             const updatePost = posts.updatePost(postID, postBody1)
             updatePost.then((res) => {
@@ -120,7 +103,7 @@ describe('posts put request ', () => {
             })
         })
     })
-    it("Verify that a PUT request without providing the title field return an error ", () => {
+    it("Verify that a Post request without providing the title field return an error ", () => {
         const postBody = {
             //title: 'Testing',
             body: "This is my post content",
@@ -135,7 +118,7 @@ describe('posts put request ', () => {
         })
     })
 })
-describe('post delete request ', () => {
+describe('DELETE request of posts endpoint ', () => {
     it("delete an existing post by Id ", () => {
         const postBody = {
             title: 'Testing',

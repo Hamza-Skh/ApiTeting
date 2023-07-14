@@ -15,9 +15,7 @@ class posts {
             headers: {
                 'Authorization': token
             },
-
         })
-
     }
     invalidID() {
         return cy.request({
@@ -27,18 +25,14 @@ class posts {
                 'Authorization': token
             },
             failOnStatusCode: false
-
         })
-
     }
     withoutAuthetication() {
         return cy.request({
             method: 'GET',
             url: baseUrl + 'posts/51273',
             failOnStatusCode: false
-
         })
-
     }
     createNewPost(body) {
         return cy.request({
@@ -49,8 +43,7 @@ class posts {
             },
             body: body,
             failOnStatusCode: false
-        }
-        )
+        })
     }
     getNewePost(UserID) {
         return cy.request({
@@ -60,7 +53,6 @@ class posts {
                 'Authorization': token
             },
             failOnStatusCode: false
-
         })
     }
     updatePost(UserID, body) {
@@ -72,7 +64,6 @@ class posts {
             },
             body: body,
             failOnStatusCode: false
-
         })
     }
     deletePost(postID) {
@@ -96,5 +87,4 @@ class posts {
         })
     }
 }
-
 export default new posts

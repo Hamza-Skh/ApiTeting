@@ -1,69 +1,66 @@
 const baseUrl = Cypress.env('Url')
 const token = Cypress.env('token')
 
-class comments {
-    getAllComments() {
+class todos {
+    getAllTodos() {
         return cy.request({
             method: 'GET',
-            url: baseUrl + 'comments',
+            url: baseUrl + 'todos',
         })
     }
-    getSingleComment() {
+    getSingleTodos() {
         return cy.request({
             method: 'GET',
-            url: baseUrl + 'comments/45465',
-            headers: {
-                'Authorization': token
-            },
+            url: baseUrl + 'todos/20292',
         })
     }
     invalidID() {
         return cy.request({
             method: 'GET',
-            url: baseUrl + 'comments/521',
-            headers: {
-                'Authorization': token
-            },
+            url: baseUrl + 'todos/521',
             failOnStatusCode: false
         })
 
     }
-    createNewComment(body) {
+    createNewTodo(body) {
         return cy.request({
             method: 'POST',
-            url: baseUrl + 'comments',
+            url: baseUrl + 'todos',
             headers: {
                 'Authorization': token
             },
             body: body,
             failOnStatusCode: false
-        })
+        }
+        )
     }
-    getNewComment(ID) {
+    getNewTodo(ID) {
         return cy.request({
             method: 'GET',
-            url: baseUrl + 'comments/' + ID,
+            url: baseUrl + 'todos/' + ID,
             headers: {
                 'Authorization': token
             },
             failOnStatusCode: false
+
         })
     }
-    updateComments(UserID, body) {
+    updateTodo(ID, body) {
         return cy.request({
             method: 'PUT',
-            url: baseUrl + 'comments/' + UserID,
+            url: baseUrl + 'todos/' + ID,
             headers: {
                 'Authorization': token
             },
             body: body,
             failOnStatusCode: false
+
         })
     }
-    deleteComents(ID) {
+    deleteTodo(ID) {
         return cy.request({
             method: 'DELETE',
-            url: baseUrl + 'comments/' + ID,
+            url: baseUrl + 'todos/' + ID,
             headers: {
                 'Authorization': token
             },
@@ -71,4 +68,5 @@ class comments {
         })
     }
 }
-export default new comments
+
+export default new todos
