@@ -1,22 +1,18 @@
 const baseUrl = Cypress.env('Url')
 const token = Cypress.env('token')
 
+
 class user {
     baseurl() {
         return baseUrl
     }
     getAllUser() {
-        return new Cypress.Promise((resolve, reject) => {
-            cy.request({
+        return cy.request({
                 method: 'GET',
-                url: this.baseurl() + 'posts',
-            }).then((res) => {
-                resolve(res);
-            });
-        })
+                url: this.baseurl() + 'users',
+            })
     }
     createNewUser(body) {
-
         return cy.request({
             method: 'POST',
             url: this.baseurl() + 'users',

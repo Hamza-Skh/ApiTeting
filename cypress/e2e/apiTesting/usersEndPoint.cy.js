@@ -1,14 +1,14 @@
 /// <reference types = "Cypress" />
-import user from '/cypress/support/pageObject/pom.js';
+import user from '/cypress/support/pageObject/userApi.js';
 
-describe('API Testing user ', () => {
-  it('get all the user', async () => {
-    const res = await user.getAllUser()
-    cy.log(res.body)
-    console.log(res.body)
-    cy.log(JSON.stringify(res))
-    expect(res.status).eq(200)
-    expect(res.body).have.length(10)
+describe('users API Testing ', () => {
+  it('get all the user', () => {
+    const GetAllUser = user.getAllUser()
+    GetAllUser.then((res) => {
+      cy.log(res.body)
+      expect(res.status).eq(200)
+      expect(res.body).have.length(10)
+    })
   })
   it('create new user', () => {
     const requestBody = {
