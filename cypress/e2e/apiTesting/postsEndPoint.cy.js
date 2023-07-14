@@ -115,6 +115,8 @@ describe('posts put request ', () => {
             const updatePost = posts.updatePost(postID, postBody1)
             updatePost.then((res) => {
                 cy.log(res)
+                expect(res.body.title).eq('Testing123')
+                expect(res.body.body).eq('This is put content')
             })
         })
     })

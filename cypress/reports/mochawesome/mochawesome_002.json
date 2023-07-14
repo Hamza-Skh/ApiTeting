@@ -1,0 +1,317 @@
+{
+  "stats": {
+    "suites": 4,
+    "tests": 9,
+    "passes": 9,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-07-14T09:44:48.313Z",
+    "end": "2023-07-14T09:44:53.278Z",
+    "duration": 4965,
+    "testsRegistered": 9,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "ae1a4e34-43a3-4f45-bc83-d4f903b33ac5",
+      "title": "",
+      "fullFile": "cypress/e2e/apiTesting/commentsEndPoint.cy.js",
+      "file": "cypress/e2e/apiTesting/commentsEndPoint.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "058cd4d2-5631-468f-a2ff-a0a96e9aa0f2",
+          "title": "comments get request ",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "get all comments ",
+              "fullTitle": "comments get request  get all comments ",
+              "timedOut": null,
+              "duration": 796,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const postsUsers = _commentsApi.default.getAllComments();\npostsUsers.then(res => {\n  cy.log(res.body);\n  expect(res.body).to.have.length(10);\n  expect(res.status).eq(200);\n});",
+              "err": {},
+              "uuid": "f26138f2-6247-4054-9bcd-02ec50baa2ca",
+              "parentUUID": "058cd4d2-5631-468f-a2ff-a0a96e9aa0f2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "get post of specific ID",
+              "fullTitle": "comments get request  get post of specific ID",
+              "timedOut": null,
+              "duration": 302,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const getUser = _commentsApi.default.getSingleComment();\ngetUser.then(res => {\n  cy.log(res.body);\n  expect(res.status).eq(200);\n  expect(res.body.id).eq(45465);\n  expect(res.body.post_id).eq(51253);\n});",
+              "err": {},
+              "uuid": "d007a1c0-d27b-4a89-b81f-08d8b041cae0",
+              "parentUUID": "058cd4d2-5631-468f-a2ff-a0a96e9aa0f2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "get request with an non-existent comment ID ",
+              "fullTitle": "comments get request  get request with an non-existent comment ID ",
+              "timedOut": null,
+              "duration": 574,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const invalidID = _commentsApi.default.invalidID();\ninvalidID.then(res => {\n  cy.log(res.body);\n  expect(res.status).eq(404);\n  expect(res.body).to.have.property(\"message\", \"Resource not found\");\n});",
+              "err": {},
+              "uuid": "71f8b8eb-1346-4287-b6b1-beeba61d17d3",
+              "parentUUID": "058cd4d2-5631-468f-a2ff-a0a96e9aa0f2",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f26138f2-6247-4054-9bcd-02ec50baa2ca",
+            "d007a1c0-d27b-4a89-b81f-08d8b041cae0",
+            "71f8b8eb-1346-4287-b6b1-beeba61d17d3"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1672,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "86f3befe-6e37-4e43-aaf0-2650e018ce37",
+          "title": "comments post requests ",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "create new comment ",
+              "fullTitle": "comments post requests  create new comment ",
+              "timedOut": null,
+              "duration": 336,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const commentsBody = {\n  \"Id\": 45465,\n  \"post_id\": 51106,\n  \"name\": \"Aaditya Bhat\",\n  \"email\": \"aaditya_bhat@howell-larson.test\",\n  \"body\": \"this is the comments body\"\n};\nconst newComment = _commentsApi.default.createNewComment(commentsBody);\nnewComment.then(res => {\n  cy.log(res.body);\n  expect(res.status).eq(201);\n  expect(res.body.body).eq('this is the comments body');\n  expect(res.body.post_id).eq(51106);\n});",
+              "err": {},
+              "uuid": "6029a809-d55f-44af-a6f4-bf2969d5d6e9",
+              "parentUUID": "86f3befe-6e37-4e43-aaf0-2650e018ce37",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "verify new post comment request present in all comments",
+              "fullTitle": "comments post requests  verify new post comment request present in all comments",
+              "timedOut": null,
+              "duration": 551,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const commentsBody = {\n  \"Id\": 45465,\n  \"post_id\": 51106,\n  \"name\": \"cypress\",\n  \"email\": \"testing@howell-larson.test\",\n  \"body\": \"this is the comments body 2\"\n};\nconst newComment = _commentsApi.default.createNewComment(commentsBody);\nnewComment.then(res => {\n  const Id = res.body.id;\n  const post = _commentsApi.default.getNewComment(Id);\n  post.then(res => {\n    expect(res.status).eq(200);\n    expect(res.body.body).eq('this is the comments body 2');\n  });\n});",
+              "err": {},
+              "uuid": "6dcfcf73-18b3-41cf-9adb-b566f956bd2c",
+              "parentUUID": "86f3befe-6e37-4e43-aaf0-2650e018ce37",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "6029a809-d55f-44af-a6f4-bf2969d5d6e9",
+            "6dcfcf73-18b3-41cf-9adb-b566f956bd2c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 887,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "47ecacb0-38c5-4257-a411-4ecbbe1f71be",
+          "title": "comments put request ",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Verify user update comment sucessfully ",
+              "fullTitle": "comments put request  Verify user update comment sucessfully ",
+              "timedOut": null,
+              "duration": 574,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const commentsBody = {\n  \"Id\": 45465,\n  \"post_id\": 51106,\n  \"name\": \"cypress\",\n  \"email\": \"testing@howell-larson.test\",\n  \"body\": \"this is the comments body 2\"\n};\nconst newComment = _commentsApi.default.createNewComment(commentsBody);\nnewComment.then(res => {\n  const Id = res.body.id;\n  const commentsBody1 = {\n    \"Id\": 45465,\n    \"post_id\": 51106,\n    \"name\": \"cypresstesting\",\n    \"email\": \"testing21@howell-larson.test\",\n    \"body\": \"this is the comments upated request\"\n  };\n  const updateComments = _commentsApi.default.updateComments(Id, commentsBody1);\n  updateComments.then(res => {\n    cy.log(res);\n    expect(res.body.body).eq('this is the comments upated request');\n    expect(res.body.name).eq('cypresstesting');\n    expect(res.body.email).eq('testing21@howell-larson.test');\n  });\n});",
+              "err": {},
+              "uuid": "db5c1bcf-1b78-475c-bab4-d3db58a85ad1",
+              "parentUUID": "47ecacb0-38c5-4257-a411-4ecbbe1f71be",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify that a PUT request without providing the name field return an error ",
+              "fullTitle": "comments put request  Verify that a PUT request without providing the name field return an error ",
+              "timedOut": null,
+              "duration": 529,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const commentsBody = {\n  \"Id\": 45465,\n  \"post_id\": 51106,\n  //\"name\":\"cypress\",\n  \"email\": \"testing@howell-larson.test\",\n  \"body\": \"this is the comments body 2\"\n};\nconst newComment = _commentsApi.default.createNewComment(commentsBody);\nnewComment.then(res => {\n  const Id = res.body.id;\n  const commentsBody1 = {\n    \"Id\": 45465,\n    \"post_id\": 51106,\n    \"name\": \"cypresstesting\",\n    \"email\": \"testing21@howell-larson.test\",\n    \"body\": \"this is the comments upated request\"\n  };\n  const updateComments = _commentsApi.default.updateComments(Id, commentsBody1);\n  updateComments.then(res => {\n    cy.log(res);\n    expect(res.status).eq(404);\n    expect(res.body).to.have.property('message', \"Resource not found\");\n  });\n});",
+              "err": {},
+              "uuid": "74b3eb65-04cf-4247-ae06-ae8543cbab6d",
+              "parentUUID": "47ecacb0-38c5-4257-a411-4ecbbe1f71be",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "db5c1bcf-1b78-475c-bab4-d3db58a85ad1",
+            "74b3eb65-04cf-4247-ae06-ae8543cbab6d"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1103,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        },
+        {
+          "uuid": "5ac17973-a8f2-447d-93ad-349395cf8cf2",
+          "title": "comments delete request ",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "delete an existing comment by Id ",
+              "fullTitle": "comments delete request  delete an existing comment by Id ",
+              "timedOut": null,
+              "duration": 656,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const commentsBody = {\n  \"Id\": 45465,\n  \"post_id\": 51106,\n  \"name\": \"cypress\",\n  \"email\": \"testing@howell-larson.test\",\n  \"body\": \"this is the comments body 2\"\n};\nconst newComment = _commentsApi.default.createNewComment(commentsBody);\nnewComment.then(res => {\n  const Id = res.body.id;\n  const delComment = _commentsApi.default.deleteComents(Id);\n  delComment.then(res => {\n    cy.log(res);\n    expect(res.status).eq(204);\n    expect(res.body).to.be.empty;\n    expect(res.body).eq(\"\");\n  });\n});",
+              "err": {},
+              "uuid": "a834188f-ee9a-46d4-b633-6f418cfe14f2",
+              "parentUUID": "5ac17973-a8f2-447d-93ad-349395cf8cf2",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "delete an existing post by invalid id ",
+              "fullTitle": "comments delete request  delete an existing post by invalid id ",
+              "timedOut": null,
+              "duration": 572,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const commentsBody = {\n  \"Id\": 45465,\n  \"post_id\": 51106,\n  \"name\": \"cypress\",\n  \"email\": \"testing@howell-larson.test\",\n  \"body\": \"this is the comments body 2\"\n};\nconst newComment = _commentsApi.default.createNewComment(commentsBody);\nnewComment.then(res => {\n  const Id = res.body.id + 2;\n  const delComment = _commentsApi.default.deleteComents(Id);\n  delComment.then(res => {\n    cy.log(res);\n    expect(res.status).eq(404);\n    expect(res.body).to.have.property('message', \"Resource not found\");\n  });\n});",
+              "err": {},
+              "uuid": "f34e0b76-93e8-41fb-ae8b-2730822428b4",
+              "parentUUID": "5ac17973-a8f2-447d-93ad-349395cf8cf2",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "a834188f-ee9a-46d4-b633-6f418cfe14f2",
+            "f34e0b76-93e8-41fb-ae8b-2730822428b4"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1228,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
